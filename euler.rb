@@ -21,6 +21,12 @@ when 2
 when 3
   desc = 'Find the largest prime factor of a composite number.'
   sol = prime_factors(600851475143).max
+when 4
+  desc = 'Find the largest palindrome made from the product of two 3-digit numbers.'
+  rng = 100..999
+  prods = []
+  rng.each {|n| prods.concat(rng.map{|x| x * n})}
+  sol = prods.find_all{|n| n.to_s == n.to_s.reverse}.max
 end
 
 if desc == nil or sol == nil then
