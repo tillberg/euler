@@ -1,5 +1,4 @@
-
-class Array; def sum; inject( nil ) { |sum,x| sum ? sum+x : x }; end; end
+require "util.rb"
 
 problem = ARGV[0].to_i
 
@@ -14,14 +13,14 @@ when 2
   desc = 'Find the sum of all the even-valued terms in the Fibonacci sequence which do not exceed four million.'
   fib = [1, 2]
   while true
-    nxt = fib[-1] + fib[-2]
+    nxt = fib[-2..-1].sum
     break if nxt > 4000000
     fib.push(nxt)
   end
   sol = fib.find_all {|x| x % 2 == 0}.sum
 when 3
   desc = 'Find the largest prime factor of a composite number.'
-  num = 600851475143
+  sol = prime_factors(600851475143).max
 end
 
 if desc == nil or sol == nil then
