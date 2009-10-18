@@ -36,6 +36,10 @@ class Integer
     maxcheck = (self ** 0.5).floor
     (2..maxcheck).each{|n| return false if self % n == 0}
     true
-  end  
+  end
+  
+  def is_even
+    self & 1 == 0
+  end
 end
 

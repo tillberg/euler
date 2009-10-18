@@ -93,6 +93,22 @@ when 13
   nums = @text_13.split(' ').map{|s| s.strip.to_i}
   sol = nums.sum.to_s[0...10]
 when 14
+  desc = 'Find the longest sequence using a starting number under one million.'
+  class Integer
+    # Use memoization for a dramatic speedup
+    @@seqlens = {}
+    def seqlen
+      return @@seqlens[self] if @@seqlens.key?self
+      return 1 if self <= 1
+      len = 1 + (self.is_even ? (self / 2).seqlen : (3 * self + 1).seqlen)
+      @@seqlens[self] = len
+    end
+  end
+  seqlens = (0...1000000).map{|n| n.seqlen}
+  sol = seqlens.index seqlens.max
+when 15
+  desc = 'Starting in the top left corner in a 20 by 20 grid, how many routes are there to the bottom right corner?'
+  
 end
 
 if desc == nil or sol == nil then
