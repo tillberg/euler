@@ -109,7 +109,7 @@ when 14
   sol = seqlens.index seqlens.max
 when 15
   desc = 'Starting in the top left corner in a 20 by 20 grid, how many routes are there to the bottom right corner?'
-  # I think this is just simple combinatorics, but let's just solve it recursively for fun
+  # I think this is just simple combinatorics, but let's just solve it recursively for fun (with memoization for efficiency)
   @paths_mem = {}
   def paths(i, j, size)
     return 1 if i == size and j == size
@@ -128,7 +128,7 @@ when 17
       return 'one thousand' if self == 1000
       digits = self.digits
       words = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
-      decades = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+      decades = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
       str = []
       str.push(words[digits[-3]] + ' hundred') if digits.length >= 3
       str.push('and') if digits.length >= 3 and (digits[-1] != 0 or digits[-2] != 0)
@@ -138,7 +138,17 @@ when 17
     end
   end
   sol = (1..1000).to_a.map{|n| n.inwords.gsub(' ', '').length}.sum
-  
+when 18
+  desc = 'Find the maximum sum travelling from the top of the triangle to the base.'
+  @rows = @triangle_17.split(/\n/).map{|s| s.split.map{|n| n.to_i}}
+  @maxsums = {}
+  def maxsum(row, col)
+    return 0 if row >= @rows.length
+    key = [row, col]
+    return @maxsums[key] if @maxsums.key?key
+    @maxsums[key] = @rows[row][col] + [maxsum(row+1, col), maxsum(row+1, col+1)].max
+  end
+  sol = maxsum(0, 0)
 end
 
 if desc == nil or sol == nil then
