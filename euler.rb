@@ -152,7 +152,9 @@ when 18
 when 19
   desc = 'How many Sundays fell on the first of the month during the twentieth century?'
   sol = (1901..2000).map{|year| (1..12).find_all{|month| DateTime.new(year, month, 1).wday == 0 }.length}.sum
-  
+when 20
+  desc = 'Find the sum of digits in 100!'
+  sol = 100.factorial.digits.sum
 end
 
 if desc == nil or sol == nil then
