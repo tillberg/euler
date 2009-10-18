@@ -108,7 +108,15 @@ when 14
   sol = seqlens.index seqlens.max
 when 15
   desc = 'Starting in the top left corner in a 20 by 20 grid, how many routes are there to the bottom right corner?'
-  
+  # I think this is just simple combinatorics, but let's just solve it recursively for fun
+  @paths_mem = {}
+  def paths(i, j, size)
+    return 1 if i == size and j == size
+    key = [i, j, size]
+    return @paths_mem[key] if @paths_mem.key?key
+    @paths_mem[key] = ((i < size) ? paths(i+1, j, size) : 0) + ((j < size) ? paths(i, j+1, size) : 0)
+  end
+  sol = paths(0, 0, 20)
 end
 
 if desc == nil or sol == nil then
