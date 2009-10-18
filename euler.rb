@@ -168,6 +168,11 @@ when 21
     end
   end
   sol = (2...10000).find_all{|n| n.is_amicable}.sum
+when 22
+  desc = 'What is the total of all the name scores in the file of first names?'
+  names = open('names.txt') {|f| eval '[' + f.read + ']' }.sort
+  values = names.map{|name| name.chars.map{|n| n[0] - ?A + 1}.sum}
+  sol = values.enum_with_index.map{|v, i| v * (i + 1)}.sum
 end
 
 if desc == nil or sol == nil then
