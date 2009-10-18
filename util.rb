@@ -23,7 +23,16 @@ class Integer
     factors
   end
   
+  def divisors
+    maxcheck = (self ** 0.5).floor
+    divs = (1..maxcheck).find_all{|d| self % d == 0}
+    invdivs = divs.map{|d| self / d}.reverse
+    invdivs.pop if invdivs.last == maxcheck # Avoid double-counting the square root
+    divs.concat(invdivs)
+  end
+  
   def is_prime
+    return false if self == 1
     maxcheck = (self ** 0.5).floor
     (2..maxcheck).each{|n| return false if self % n == 0}
     true
