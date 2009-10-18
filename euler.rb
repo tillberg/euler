@@ -149,6 +149,10 @@ when 18
     @maxsums[key] = @rows[row][col] + [maxsum(row+1, col), maxsum(row+1, col+1)].max
   end
   sol = maxsum(0, 0)
+when 19
+  desc = 'How many Sundays fell on the first of the month during the twentieth century?'
+  sol = (1901..2000).map{|year| (1..12).find_all{|month| DateTime.new(year, month, 1).wday == 0 }.length}.sum
+  
 end
 
 if desc == nil or sol == nil then
