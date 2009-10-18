@@ -20,13 +20,31 @@ when 2
   sol = fib.find_all {|x| x % 2 == 0}.sum
 when 3
   desc = 'Find the largest prime factor of a composite number.'
-  sol = prime_factors(600851475143).max
+  sol = 600851475143.factors.max
 when 4
   desc = 'Find the largest palindrome made from the product of two 3-digit numbers.'
   rng = 100..999
   prods = []
   rng.each {|n| prods.concat(rng.map{|x| x * n})}
   sol = prods.find_all{|n| n.to_s == n.to_s.reverse}.max
+when 5
+  desc = 'What is the smallest number divisible by each of the numbers 1 to 20?'
+  rng = 1..20
+  # For a minor optimization, we'll only check multiples of the product of the primes
+  step = rng.find_all{|n| n.is_prime}.mult
+  n = step
+  n += step while rng.find_all{|d| n % d != 0}.length != 0
+  sol = n
+when 6
+  desc = 'What is the difference between the sum of the squares and the square of the sums?'
+  rng = (1..100).to_a
+  sol = rng.sum ** 2 - rng.map{|n| n ** 2}.sum
+when 7
+  desc = 'Find the 10001st prime.'
+  n = 1
+  num = 0
+  10001.times{n += 1; n += 1 while not n.is_prime}
+  sol = n
 end
 
 if desc == nil or sol == nil then
