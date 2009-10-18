@@ -155,6 +155,19 @@ when 19
 when 20
   desc = 'Find the sum of digits in 100!'
   sol = 100.factorial.digits.sum
+when 21
+  desc = 'Evaluate the sum of all amicable pairs under 10000.'
+  class Integer
+    def sum_proper_divisors
+      return 1 if self == 1
+      self.divisors.sum - self
+    end
+    def is_amicable
+      sum = self.sum_proper_divisors
+      sum != self and self == sum.sum_proper_divisors
+    end
+  end
+  sol = (2...10000).find_all{|n| n.is_amicable}.sum
 end
 
 if desc == nil or sol == nil then
