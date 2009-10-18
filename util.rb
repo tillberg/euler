@@ -26,9 +26,13 @@ class Integer
   def divisors
     maxcheck = (self ** 0.5).floor
     divs = (1..maxcheck).find_all{|d| self % d == 0}
-    invdivs = divs.map{|d| self / d}.reverse
+    invdivs = divs.map{|d| self / d}
     invdivs.pop if invdivs.last == maxcheck # Avoid double-counting the square root
-    divs.concat(invdivs)
+    divs.concat(invdivs.reverse)
+  end
+  
+  def proper_divisors
+    self.divisors[0...-1]
   end
   
   def is_prime
