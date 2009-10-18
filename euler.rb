@@ -1,4 +1,5 @@
-require "util.rb"
+require 'rubygems'
+require 'util.rb'
 require 'data.rb'
 require 'pp'
 require 'matrix'
@@ -120,6 +121,24 @@ when 15
 when 16
   desc = 'What is the sum of the digits of the number 2**1000?'
   sol = (2**1000).digits.sum
+when 17
+  desc = 'How many letters would be needed to write all the numbers in words from 1 to 1000?'
+  class Integer
+    def inwords
+      return 'one thousand' if self == 1000
+      digits = self.digits
+      words = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+      decades = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+      str = []
+      str.push(words[digits[-3]] + ' hundred') if digits.length >= 3
+      str.push('and') if digits.length >= 3 and (digits[-1] != 0 or digits[-2] != 0)
+      str.push(decades[digits[-2]]) if digits.length >= 2 and digits[-2] > 1
+      str.push(words[digits[-1] + (digits[-2] == 1 ? 10 : 0)]) if (digits[-1] != 0 or (digits.length >= 2 and digits[-2] == 1))
+      str.join(' ')
+    end
+  end
+  sol = (1..1000).to_a.map{|n| n.inwords.gsub(' ', '').length}.sum
+  
 end
 
 if desc == nil or sol == nil then
