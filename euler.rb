@@ -117,6 +117,9 @@ when 15
     @paths_mem[key] = ((i < size) ? paths(i+1, j, size) : 0) + ((j < size) ? paths(i, j+1, size) : 0)
   end
   sol = paths(0, 0, 20)
+when 16
+  desc = 'What is the sum of the digits of the number 2**1000?'
+  sol = (2**1000).digits.sum
 end
 
 if desc == nil or sol == nil then

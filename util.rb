@@ -41,5 +41,9 @@ class Integer
   def is_even
     self & 1 == 0
   end
+  
+  def digits
+    self.to_s.split('').map{|c| c.to_i}
+  end
 end
 
