@@ -208,6 +208,26 @@ when 25
     fib.push(nxt)
   end
   sol = n
+when 26
+  desc = 'Find the value of d < 1000 for which 1/d contains the longest recurring cycle.'
+  def divide(num, divisor, history)
+    return 0 if num == 0
+    key = [num, divisor]
+    return history.length - history[key] if history.key?key
+    history[key] = history.length
+    digit = (num * 10 / divisor).floor
+    rem = num * 10 - digit * divisor
+    divide(rem, divisor, history)
+  end
+  class Integer
+    def inv_cycle_length
+      divide(1, self, {})
+    end
+  end
+  cycles = (1..1000).map{|n| n.inv_cycle_length}
+  sol = 1 + (cycles.index cycles.max)
+when 27
+  
 end
 
 if desc == nil or sol == nil then
