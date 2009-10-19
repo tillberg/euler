@@ -46,6 +46,10 @@ class Integer
     self & 1 == 0
   end
   
+  def is_odd
+    self & 1 == 1
+  end
+  
   def digits
     self.to_s.split('').map{|c| c.to_i}
   end

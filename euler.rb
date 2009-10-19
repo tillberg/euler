@@ -1,8 +1,9 @@
 require 'rubygems'
-require 'util.rb'
-require 'data.rb'
+require 'util'
+require 'data'
 require 'pp'
 require 'matrix'
+require 'set'
 
 problem = ARGV[0].to_i
 
@@ -173,6 +174,17 @@ when 22
   names = open('names.txt') {|f| eval '[' + f.read + ']' }.sort
   values = names.map{|name| name.chars.map{|n| n[0] - ?A + 1}.sum}
   sol = values.enum_with_index.map{|v, i| v * (i + 1)}.sum
+when 23
+  desc = 'Find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.'
+  class Integer
+    def is_abundant
+      self.proper_divisors.sum > self
+    end
+  end
+  top = 28123
+  abun = (2..top).find_all{|n| n.is_abundant}
+  abunset = Set.new(abun)
+  sol = (1..top).find_all{|n| abun.find_all{|i| abunset.include?(n - i)}.length == 0}.sum
 end
 
 if desc == nil or sol == nil then
