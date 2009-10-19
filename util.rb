@@ -6,6 +6,12 @@ class Array
   def mult
     inject( nil ) { |sum,x| sum ? sum*x : x }
   end
+  
+  def cartprod(c = self)
+    r = []
+    self.each{|a| c.each{|b| r.push([a, b])}}
+    r
+  end
 end
 
 class Integer
@@ -35,11 +41,14 @@ class Integer
     self.divisors[0...-1]
   end
   
+  @@was_prime = {}
   def is_prime
-    return false if self == 1
+    return false if self <= 1
+    return @@was_prime[self] if @@was_prime.key?self
     maxcheck = (self ** 0.5).floor
+    @@was_prime[self] = false # This is worse than not being thread-safe
     (2..maxcheck).each{|n| return false if self % n == 0}
-    true
+    @@was_prime[self] = true
   end
   
   def is_even
@@ -59,4 +68,6 @@ class Integer
     self * (self - 1).factorial
   end
 end
+
+
 
