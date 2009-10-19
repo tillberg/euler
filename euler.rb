@@ -185,6 +185,18 @@ when 23
   abun = (2..top).find_all{|n| n.is_abundant}
   abunset = Set.new(abun)
   sol = (1..top).find_all{|n| abun.find_all{|i| abunset.include?(n - i)}.length == 0}.sum
+when 24
+  desc = 'What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?'
+  class Array
+    def permutations
+      return [self] if size < 2
+      perm = []
+      each { |e| (self - [e]).permutations.each { |p| perm << ([e] + p) } }
+      perm
+    end
+  end
+  perms = '0123456789'.chars.to_a.permutations.map{|arr| arr.to_s}.sort
+  sol = perms[999999]
 end
 
 if desc == nil or sol == nil then
