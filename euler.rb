@@ -197,6 +197,17 @@ when 24
   end
   perms = '0123456789'.chars.to_a.permutations.map{|arr| arr.to_s}.sort
   sol = perms[999999]
+when 25
+  desc = 'What is the first term in the Fibonacci sequence to contain 1000 digits?'
+  fib = [1, 2]
+  n = 3
+  while true
+    nxt = fib[-2..-1].sum
+    n += 1
+    break if nxt.to_s.length >= 1000
+    fib.push(nxt)
+  end
+  sol = n
 end
 
 if desc == nil or sol == nil then
