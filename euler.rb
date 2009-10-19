@@ -262,7 +262,7 @@ when 29
   sol = ab.map{|p| p[0] ** p[1]}.uniq.length
 when 30
   desc = 'Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.'
-  
+  sol = (2...1000000).find_all{|n| n == n.digits.map{|d| d**5}.sum}.sum
 when 31
   desc = 'Investigating combinations of English currency denominations.'
   
