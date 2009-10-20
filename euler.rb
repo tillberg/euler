@@ -274,7 +274,17 @@ when 32
   sol = factors.map{|f, g| prod = f * g; digits = f.digits + g.digits + prod.digits; (digits.sort.to_s == '123456789' ? prod : 0)}.uniq.sum
 when 33
   desc = 'Discover all the fractions with an unorthodox cancelling method.'
-  
+  fractions = [10..99, 10..99].explode
+  all = fractions.find_all{|n, d| ns = n.digits; ds = d.digits; n < d && (n * ds[1] == ns[0] * d) && (ns[1] == ds[0]) && (ds[1] != ns[1])}
+  prod = [1, 1]
+  all.each{|f| prod = prod.prod f}
+  class Array
+    def reduced
+      gcd = self[0].gcd self[1]
+      [self[0] / gcd, self[1] / gcd]
+    end
+  end
+  sol = prod.reduced[1]
 when 34
   desc = 'Find the sum of all numbers which are equal to the sum of the factorial of their digits.'
   
