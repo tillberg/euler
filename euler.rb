@@ -270,7 +270,8 @@ when 31
   sol = 1 + max.explode.map{|counts| max2 = ((200 - counts.prod(val).sum) / 2).floor; [max2 + 1, 0].max}.sum
 when 32
   desc = 'Find the sum of all numbers that can be written as pandigital products.'
-  
+  factors = [0..10000, 0..100].explode + [0..1000, 0..1000].explode # This is just a wild shot
+  sol = factors.map{|f| prod = f[0] * f[1]; digits = f[0].digits + f[1].digits + prod.digits; (digits.sort.to_s == '123456789' ? prod : 0)}.uniq.sum
 when 33
   desc = 'Discover all the fractions with an unorthodox cancelling method.'
   
