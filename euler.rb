@@ -301,7 +301,7 @@ when 35
   sol = (0...1000000).find_all{|n| len = n.digits.length; (0...len).find_all{|m| n.rotate_digits(m).is_prime}.length == len}.length
 when 36
   desc = 'Find the sum of all numbers less than one million, which are palindromic in base 10 and base 2.'
-  
+  sol = (1...1000000).find_all{|n| d = n.to_s; b = n.to_s(2); (d == d.reverse && b == b.reverse)}.sum
 when 37
   desc = 'Find the sum of all eleven primes that are both truncatable from left to right and right to left.'
   
