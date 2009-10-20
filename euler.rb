@@ -291,7 +291,14 @@ when 34
   sol = (10..100000).find_all{|n| n == n.digits.map{|d| d.factorial}.sum}.sum
 when 35
   desc = 'How many circular primes are there below one million?'
-  
+  class Integer
+    def rotate_digits(n = 1)
+      return self if n < 1
+      digits = self.digits
+      (digits[n..-1] + digits[0..n-1]).to_s.to_i
+    end
+  end
+  sol = (0...1000000).find_all{|n| len = n.digits.length; (0...len).find_all{|m| n.rotate_digits(m).is_prime}.length == len}.length
 when 36
   desc = 'Find the sum of all numbers less than one million, which are palindromic in base 10 and base 2.'
   
