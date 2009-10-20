@@ -287,7 +287,7 @@ when 33
   sol = prod.reduced[1]
 when 34
   desc = 'Find the sum of all numbers which are equal to the sum of the factorial of their digits.'
-  # The range is arbitrary ... I tried 100x higher too and this was sufficient
+  # The range is arbitrary ... I tried 100x higher too but this was sufficient
   sol = (10..100000).find_all{|n| n == n.digits.map{|d| d.factorial}.sum}.sum
 when 35
   desc = 'How many circular primes are there below one million?'
