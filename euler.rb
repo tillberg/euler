@@ -265,7 +265,9 @@ when 30
   sol = (2...1000000).find_all{|n| n == n.digits.map{|d| d**5}.sum}.sum
 when 31
   desc = 'Investigating combinations of English currency denominations.'
-  
+  val = [5, 10, 20, 50, 100]
+  max = val.map{|v| 0..(200 / v)}
+  sol = 1 + max.explode.map{|counts| max2 = ((200 - counts.prod(val).sum) / 2).floor; [max2 + 1, 0].max}.sum
 when 32
   desc = 'Find the sum of all numbers that can be written as pandigital products.'
   
@@ -289,7 +291,7 @@ when 38
   
 when 39
   desc = 'If p is the perimeter of a right angle triangle, {a, b, c}, which value, for p ≤ 1000, has the most solutions?'
-  (3..100).map{|p| (1..(p-2)).cartprod.find_all{|f| (f[0] ** 2 + f[1] ** 2).is_square}.length}.join(', ')
+  (3..100).map{|p| (1..(p-2)).product.find_all{|f| (f[0] ** 2 + f[1] ** 2).is_square}.length}.join(', ')
 when 40
   desc = 'Finding the nth digit of the fractional part of the irrational number.'
   

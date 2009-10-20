@@ -7,9 +7,23 @@ class Array
     inject( nil ) { |sum,x| sum ? sum*x : x }
   end
   
-  def cartprod(c = self)
+  def prod(b = self)
+    (0...self.length).map{|i| self[i] * b[i]}
+  end
+  
+  def appendprod(c = self)
     r = []
-    self.each{|a| c.each{|b| r.push([a, b])}}
+    self.each{|a| c.each{|b| r.push(a + [b])}}
+    r
+  end
+  
+  def explode
+    r = self[0].map{|n| [n]}
+    s = self[1..-1]
+    while s.length > 0
+      r = r.appendprod(s[0])
+      s = s[1..-1]
+    end
     r
   end
 end
