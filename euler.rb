@@ -304,7 +304,8 @@ when 36
   sol = (1...1000000).find_all{|n| d = n.to_s; b = n.to_s(2); (d == d.reverse && b == b.reverse)}.sum
 when 37
   desc = 'Find the sum of all eleven primes that are both truncatable from left to right and right to left.'
-  
+  # Again, the range here is arbitrary.  I just increased it till I got all eleven.
+  sol = (11..1000000).find_all{|n| len = n.digits.length; (n.is_prime && (1..(len-1)).find_all{|t| n.digits[t..-1].to_s.to_i.is_prime && n.digits[0...-t].to_s.to_i.is_prime}.length == (len - 1))}.sum
 when 38
   desc = 'What is the largest 1 to 9 pandigital that can be formed by multiplying a fixed number by 1, 2, 3, ... ?'
   
