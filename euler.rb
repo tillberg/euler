@@ -308,7 +308,7 @@ when 37
   sol = (11..1000000).find_all{|n| len = n.digits.length; (n.is_prime && (1..(len-1)).find_all{|t| n.digits[t..-1].to_s.to_i.is_prime && n.digits[0...-t].to_s.to_i.is_prime}.length == (len - 1))}.sum
 when 38
   desc = 'What is the largest 1 to 9 pandigital that can be formed by multiplying a fixed number by 1, 2, 3, ... ?'
-  
+  sol = (1...100000).map{|n| prods = (2..8).map{|d| (1..d).map{|f| (f * n).to_s}.to_s.to_i }.find_all{|p| p.digits.sort.to_s == '123456789'}; prods.length > 0 ? prods.max : 0 }.max
 when 39
   desc = 'If p is the perimeter of a right angle triangle, {a, b, c}, which value, for p ≤ 1000, has the most solutions?'
   (3..100).map{|p| (1..(p-2)).product.find_all{|f| (f[0] ** 2 + f[1] ** 2).is_square}.length}.join(', ')
