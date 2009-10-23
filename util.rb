@@ -81,6 +81,11 @@ class Integer
     return 1 if self <= 1
     self * (self - 1).factorial
   end
+  
+  def is_square
+    # This is probably not a perfect implementation, but seems to work somewhat - depends greatly on how (** 0.5) is implemented in terms of rounding and accuracy.
+    (self ** 0.5).floor ** 2 == self
+  end
 end
 
 

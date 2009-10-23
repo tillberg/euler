@@ -308,13 +308,22 @@ when 37
   sol = (11..1000000).find_all{|n| len = n.digits.length; (n.is_prime && (1..(len-1)).find_all{|t| n.digits[t..-1].to_s.to_i.is_prime && n.digits[0...-t].to_s.to_i.is_prime}.length == (len - 1))}.sum
 when 38
   desc = 'What is the largest 1 to 9 pandigital that can be formed by multiplying a fixed number by 1, 2, 3, ... ?'
+  # This would be made cleaner by combining the map and find_all function for the outer loop (instead of the the prods.length > 0 switch at the end)
   sol = (1...100000).map{|n| prods = (2..8).map{|d| (1..d).map{|f| (f * n).to_s}.to_s.to_i }.find_all{|p| p.digits.sort.to_s == '123456789'}; prods.length > 0 ? prods.max : 0 }.max
 when 39
   desc = 'If p is the perimeter of a right angle triangle, {a, b, c}, which value, for p ≤ 1000, has the most solutions?'
-  (3..100).map{|p| (1..(p-2)).product.find_all{|f| (f[0] ** 2 + f[1] ** 2).is_square}.length}.join(', ')
+  # I need to optimize this, based on the idea that if I know p and a, I can calculate b and c.
+  # a**2 + b**2 == c**2, a + b + c = p => c = p - a - b.  a**2 + b**2 == (p - a - b)**2 == p**2 + a**2 + b**2 - 2p*a - 2p*b + 2a*b
+  # => 2(a-p)*b + (p**2 - 2p*a) == 0 => 2(a-p)*b == 2p*a - p**2 => b == (p**2 - 2*p*a) / (2*p - 2*a) 
+  low = 3
+  num = (low..1000).map{|p| rng = (1..(p-2)).find_all{|a| b = (p**2 - 2*p*a).to_f / (2*p - 2*a); b = [0, b.round].max; a <= b && a**2 + b**2 == (p - a - b)**2 }.length}
+  sol = low + num.index(num.max)
 when 40
   desc = 'Finding the nth digit of the fractional part of the irrational number.'
-  
+  # Form a string of all the digits (beyond 1000000 digits)
+  d = (1..200000).to_a.to_s
+  # Pick out the desired digits and take their product
+  sol = (0..6).map{|n| d.slice(10**n - 1, 1).to_i}.mult
 when 41
   desc = 'What is the largest n-digit pandigital prime that exists?'
   
