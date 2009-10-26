@@ -326,7 +326,9 @@ when 40
   sol = (0..6).map{|n| d.slice(10**n - 1, 1).to_i}.mult
 when 41
   desc = 'What is the largest n-digit pandigital prime that exists?'
-  
+  # Build a list of all 1..9-digit pandigitals, then find the max prime (a.k.a. Optimus Prime? eh?)
+  pandigitals = (1..9).map{|d| (1..d).to_a.permutation.to_a.map{|arr| arr.to_s.to_i} }.sum
+  sol = pandigitals.find_all{|n| n.is_prime}.max
 when 42
   desc = 'How many triangle words does the list of common English words contain?'
   
