@@ -331,7 +331,9 @@ when 41
   sol = pandigitals.find_all{|n| n.is_prime}.max
 when 42
   desc = 'How many triangle words does the list of common English words contain?'
-  
+  words = open('words.txt') {|f| eval '[' + f.read + ']' }
+  trinums = Set.new((1..50).map{|n| n*(n+1)/2}) # The first 50 should be sufficient
+  sol = words.find_all{|w| trinums.member?(w.chars.map{|c| c[0] - ?A + 1}.sum)}.length
 when 43
   desc = 'Find the sum of all pandigital numbers with an unusual sub-string divisibility property.'
   
