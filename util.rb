@@ -17,21 +17,28 @@ class Array
     r
   end
   
-  def explode
-    
-    
-    require 'pp'
-    #puts
-    ##pp self
-    r = self[0].to_a
-    s = self[1..-1]
-    #pp r
-    #pp s
-    if s.length > 0
-      r.each{|n| s.explode.each{|a| yield [n] + a}}
-    else
-      r.map{|n| [n]}
+  def mv_find_all
+    # Multivariable find_all
+    @vs = []
+    def iter(l, r)
+      if r.length > 1
+        r[0].each{|n| iter(l + [n], r[1..-1]){|n| yield n}}
+      else
+        r[0].each{|n| v = l + [n]; @vs.push(v) if yield v}
+      end
     end
+    iter([], self){|n| yield n}
+    @vs
+  end
+  
+  def explode
+    r = self[0].map{|n| [n]}
+    s = self[1..-1]
+    while s.length > 0
+      r = r.appendprod(s[0])
+      s = s[1..-1]
+    end
+    r
   end
 end
 
