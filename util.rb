@@ -18,13 +18,20 @@ class Array
   end
   
   def explode
-    r = self[0].map{|n| [n]}
+    
+    
+    require 'pp'
+    #puts
+    ##pp self
+    r = self[0].to_a
     s = self[1..-1]
-    while s.length > 0
-      r = r.appendprod(s[0])
-      s = s[1..-1]
+    #pp r
+    #pp s
+    if s.length > 0
+      r.each{|n| s.explode.each{|a| yield [n] + a}}
+    else
+      r.map{|n| [n]}
     end
-    r
   end
 end
 
