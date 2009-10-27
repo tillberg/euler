@@ -348,10 +348,9 @@ when 43
   sol = nums.find_all{|n| n.is_weird(maxd)}.sum
 when 44
   desc = 'Find the smallest pair of pentagonal numbers whose sum and difference is pentagonal.'
-  pent = (1..10000).map{|n| n*(3*n - 1)/2}
+  pent = (1..3000).map{|n| n*(3*n - 1)/2}
   set = Set.new(pent)
-  pairs = [pent, pent].explode
-  sol = pairs.find{|a, b| a > b and set.member?(a - b) and set.member?(a + b)}
+  sol = [pent, pent].mv_find_all{|a, b| a > b and set.member?(a - b) and set.member?(a + b)}[0].diff
 when 45
   desc = 'After 40755, what is the next triangle number that is also pentagonal and hexagonal?'
   

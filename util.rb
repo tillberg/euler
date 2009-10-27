@@ -2,6 +2,10 @@ class Array
   def sum
     inject( nil ) { |sum,x| sum ? sum+x : x }
   end
+  
+  def diff
+    self[0] - self[1]
+  end
 
   def mult
     inject( nil ) { |sum,x| sum ? sum*x : x }
