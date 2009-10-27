@@ -336,7 +336,16 @@ when 42
   sol = words.find_all{|w| trinums.member?(w.chars.map{|c| c[0] - ?A + 1}.sum)}.length
 when 43
   desc = 'Find the sum of all pandigital numbers with an unusual sub-string divisibility property.'
-  
+  # Find all 0..9 pandigitals that don't have 0 as the leading digit
+  maxd = 9
+  nums = (0..maxd).to_a.permutation.to_a.map{|arr| arr.to_s.to_i}.find_all{|n| n >= 10**maxd}
+  class Integer
+    @@primes_for_isweird = (1..17).find_all{|n| n.is_prime}
+    def is_weird(maxd)
+      (1..(maxd-2)).all?{|m| self.digits[m..(m+2)].to_s.to_i % @@primes_for_isweird[m-1] == 0}
+    end
+  end
+  sol = nums.find_all{|n| n.is_weird(maxd)}.sum
 when 44
   desc = 'Find the smallest pair of pentagonal numbers whose sum and difference is pentagonal.'
   
