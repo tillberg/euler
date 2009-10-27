@@ -353,7 +353,10 @@ when 44
   sol = [pent, pent].mv_find_all{|a, b| a > b and set.member?(a - b) and set.member?(a + b)}[0].diff
 when 45
   desc = 'After 40755, what is the next triangle number that is also pentagonal and hexagonal?'
-  
+  tri = Set.new((1..100000).map{|n| n*(n+1)/2})
+  pent = Set.new((1..100000).map{|n| n*(3*n-1)/2})
+  hex = (144..1000000).find{|n| v = n*(2*n - 1); tri.member?v and pent.member?v}
+  sol = hex*(2*hex - 1)
 when 46
   desc = 'What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?'
   
