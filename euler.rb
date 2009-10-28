@@ -376,7 +376,15 @@ when 48
   sol = (1..1000).map{|n| n**n}.sum.digits[-10..-1].to_s.to_i
 when 49
   desc = 'Find arithmetic sequences, made of prime terms, whose four digits are permutations of each other.'
-  
+  def find
+    first = (1000..9997).find_all{|n| n.is_prime}.each{|n|
+      dig = n.digits.sort.to_s;
+      (1..((9999-n)/2).floor).each{|d| 
+        return [n, n + d, n + 2*d] if (n != 1487 || d != 3330) && (1..2).all?{|m| v = n + m*d; v.is_prime && v.digits.sort.to_s == dig}
+      }
+    }
+  end
+  sol = find().to_s.to_i
 when 50
   desc = 'Which prime, below one-million, can be written as the sum of the most consecutive primes?'
     
