@@ -359,7 +359,7 @@ when 45
   sol = hex*(2*hex - 1)
 when 46
   desc = 'What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?'
-  
+  sol = (2..100000).find{|n| n.is_odd && !n.is_prime && !(1..((n**0.5).floor)).any?{|a| (n - 2*a**2).is_prime}}
 when 47
   desc = 'Find the first four consecutive integers to have four distinct primes factors.'
   
