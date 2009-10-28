@@ -362,7 +362,15 @@ when 46
   sol = (2..100000).find{|n| n.is_odd && !n.is_prime && !(1..((n**0.5).floor)).any?{|a| (n - 2*a**2).is_prime}}
 when 47
   desc = 'Find the first four consecutive integers to have four distinct primes factors.'
-  
+  class Integer
+    # Memoization makes this easier to write elegantly and efficiently
+    @@mem_num_uf = {}
+    def num_uf
+      return @@mem_num_uf[self] if @@mem_num_uf.member?self
+      @@mem_num_uf[self] = self.factors.uniq.length
+    end
+  end
+  sol = (1..10000000).find{|n| (0...4).all?{|m| (n+m).num_uf == 4}}
 when 48
   desc = 'Find the last ten digits of 1**1 + 2**2 + ... + 1000**1000.'
   
