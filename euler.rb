@@ -387,7 +387,24 @@ when 49
   sol = find().to_s.to_i
 when 50
   desc = 'Which prime, below one-million, can be written as the sum of the most consecutive primes?'
-    
+  max = 1000000
+  primes = (2...max).find_all{|n| n.is_prime}
+  maxlen = 0
+  maxprime = 0
+  (0...primes.length).each{|i|
+    sum = 0
+    len = 0
+    primes[i...primes.length].each{|m| 
+      len += 1
+      sum += m
+      break if sum > max
+      if len > maxlen and sum.is_prime
+        maxlen = len
+        maxprime = sum
+      end
+    }
+  }
+  sol = maxprime
 end
 
 if desc == nil or sol == nil then

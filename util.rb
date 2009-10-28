@@ -21,6 +21,11 @@ class Array
     r
   end
   
+  def cumsum
+    sum = 0
+    self.map{|n| sum = sum + n}
+  end
+  
   def mv_find_all
     # Multivariable find_all
     @vs = []
