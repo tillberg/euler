@@ -405,6 +405,23 @@ when 50
     }
   }
   sol = maxprime
+when 51
+  desc = 'Find the smallest prime which, by changing the same part of the number, can form eight different primes.'
+  def free_positions(num_digits, num_free)
+    ([0..7]*num_free).explode.find_all{|a| a.sum < num_digits - num_free + 1}.map{|a| a.map{|n| n + 1}.cumsum.map{|n| n - 1}}
+  end
+  def number(num_digits, positions, free_num, fixed_num)
+    fixed_positions = (0...num_digits).to_a - positions
+    (0...num_digits).map{|d| (positions.member?d) ? free_num : (fixed_num.digits[fixed_positions.index(d)])}.to_s.to_i
+  end
+  num_digits = 6 # This is by no means certain, but it works.  Ideally, we'd test each number of digits starting with 2 and increasing.
+  sol = (1...num_digits).map{|num_free|
+    num_fixed = num_digits - num_free
+    matches = [free_positions(num_digits, num_free), (10**(num_fixed-1))...(10**num_fixed)].mv_find_all{|positions, fixed_num|
+      (0..9).find_all{|free_num| (free_num != 0 || positions[0] != 0) && number(num_digits, positions, free_num, fixed_num).is_prime}.length == 8
+    }
+    matches.length == 0 ? 99999999 : matches.map{|positions, fixed_num| (0..9).map{|free_num| number(num_digits, positions, free_num, fixed_num)}.find_all{|n| n.is_prime}.min}.min
+  }.min
 end
 
 if desc == nil or sol == nil then
