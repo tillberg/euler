@@ -373,7 +373,7 @@ when 47
   sol = (1..10000000).find{|n| (0...4).all?{|m| (n+m).num_uf == 4}}
 when 48
   desc = 'Find the last ten digits of 1**1 + 2**2 + ... + 1000**1000.'
-  
+  sol = (1..1000).map{|n| n**n}.sum.digits[-10..-1].to_s.to_i
 when 49
   desc = 'Find arithmetic sequences, made of prime terms, whose four digits are permutations of each other.'
   
