@@ -427,7 +427,7 @@ when 52
   sol = (100000..99999999).find{|n| dig = n.digits.sort.to_s; (2..6).all?{|f| dig == (f*n).digits.sort.to_s }}
 when 53
   desc = 'How many values of C(n,r), for 1 ≤ n ≤ 100, exceed one-million?'
-  
+  sol = (1..100).map{|n| (0..n).find_all{|r| n.factorial / (r.factorial * (n-r).factorial) > 1000000}.length}.sum
 when 54
   desc = 'How many hands did player one win in the game of poker?'
   
