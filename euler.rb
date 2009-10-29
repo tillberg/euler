@@ -422,6 +422,153 @@ when 51
     }
     matches.length == 0 ? 99999999 : matches.map{|positions, fixed_num| (0..9).map{|free_num| number(num_digits, positions, free_num, fixed_num)}.find_all{|n| n.is_prime}.min}.min
   }.min
+when 52
+  desc = 'Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits in some order.'
+  
+when 53
+  desc = 'How many values of C(n,r), for 1 ≤ n ≤ 100, exceed one-million?'
+  
+when 54
+  desc = 'How many hands did player one win in the game of poker?'
+  
+when 55
+  desc = 'How many Lychrel numbers are there below ten-thousand?'
+  
+when 56
+  desc = 'Considering natural numbers of the form, ab, finding the maximum digital sum.'
+  
+when 57
+  desc = 'Investigate the expansion of the continued fraction for the square root of two.'
+  
+when 58
+  desc = 'Investigate the number of primes that lie on the diagonals of the spiral grid.'
+  
+when 59
+  desc = 'Using a brute force attack, can you decrypt the cipher using XOR encryption?'
+  
+when 60
+  desc = 'Find a set of five primes for which any two primes concatenate to produce another prime.'
+  
+when 61
+  desc = 'Find the sum of the only set of six 4-digit figurate numbers with a cyclic property.'
+  
+when 62
+  desc = 'Find the smallest cube for which exactly five permutations of its digits are cube.'
+  
+when 63
+  desc = 'How many n-digit positive integers exist which are also an nth power?'
+  
+when 64
+  desc = 'How many continued fractions for N ≤ 10000 have an odd period?'
+  
+when 65
+  desc = 'Find the sum of digits in the numerator of the 100th convergent of the continued fraction for e.'
+  
+when 66
+  desc = 'Investigate the Diophantine equation x2 − Dy2 = 1.'
+  
+when 67
+  desc = 'Using an efficient algorithm find the maximal sum in the triangle?'
+  
+when 68
+  desc = 'What is the maximum 16-digit string for a "magic" 5-gon ring?'
+  
+when 69
+  desc = 'Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.'
+  
+when 70
+  desc = 'Investigate values of n for which φ(n) is a permutation of n.'
+  
+when 71
+  desc = 'Listing reduced proper fractions in ascending order of size.'
+  
+when 72
+  desc = 'How many elements would be contained in the set of reduced proper fractions for d ≤ 1,000,000?'
+  
+when 73
+  desc = 'How many fractions lie between 1/3 and 1/2 in a sorted set of reduced proper fractions?'
+  
+when 74
+  desc = 'Determine the number of factorial chains that contain exactly sixty non-repeating terms.'
+  
+when 75
+  desc = 'Find the number of different lengths of wire can that can form a right angle triangle in only one way.'
+  
+when 76
+  desc = 'How many different ways can one hundred be written as a sum of at least two positive integers?'
+  
+when 77
+  desc = 'What is the first value which can be written as the sum of primes in over five thousand different ways?'
+  
+when 78
+  desc = 'Investigating the number of ways in which coins can be separated into piles.'
+  
+when 79
+  desc = 'By analysing a user\'s login attempts, can you determine the secret numeric passcode?'
+  
+when 80
+  desc = 'Calculating the digital sum of the decimal digits of irrational square roots.'
+  
+when 81
+  desc = 'Find the minimal path sum from the top left to the bottom right by moving right and down.'
+  
+when 82
+  desc = 'Find the minimal path sum from the left column to the right column.'
+  
+when 83
+  desc = 'Find the minimal path sum from the top left to the bottom right by moving left, right, up, and down.'
+  
+when 84
+  desc = 'In the game, Monopoly, find the three most popular squares when using two 4-sided dice.'
+  
+when 85
+  desc = 'Investigating the number of rectangles in a rectangular grid.'
+  
+when 86
+  desc = 'Exploring the shortest path from one corner of a cuboid to another.'
+  
+when 87
+  desc = 'Investigating numbers that can be expressed as the sum of a prime square, cube, and fourth power?'
+  
+when 88
+  desc = 'Exploring minimal product-sum numbers for sets of different sizes.'
+  
+when 89
+  desc = 'Develop a method to express Roman numerals in minimal form.'
+  
+when 90
+  desc = 'An unexpected way of using two cubes to make a square.'
+  
+when 91
+  desc = 'Find the number of right angle triangles in the quadrant.'
+  
+when 92
+  desc = 'Investigating a square digits number chain with a surprising property.'
+  
+when 93
+  desc = 'Using four distinct digits and the rules of arithmetic, find the longest sequence of target numbers.'
+  
+when 94
+  desc = 'Investigating almost equilateral triangles with integral sides and area.'
+  
+when 95
+  desc = 'Find the smallest member of the longest amicable chain with no element exceeding one million.'
+  
+when 96
+  desc = 'Devise an algorithm for solving Su Doku puzzles.'
+  
+when 97
+  desc = 'Find the last ten digits of the non-Mersenne prime: 28433 × 27830457 + 1.'
+  
+when 98
+  desc = 'Investigating words, and their anagrams, which can represent square numbers.'
+  
+when 99
+  desc = 'Which base/exponent pair in the file has the greatest numerical value?'
+  
+when 100
+  desc = 'Finding the number of blue discs for which there is 50% chance of taking two blue.'
+  
 end
 
 if desc == nil or sol == nil then
