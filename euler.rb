@@ -424,7 +424,7 @@ when 51
   }.min
 when 52
   desc = 'Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits in some order.'
-  
+  sol = (100000..99999999).find{|n| dig = n.digits.sort.to_s; (2..6).all?{|f| dig == (f*n).digits.sort.to_s }}
 when 53
   desc = 'How many values of C(n,r), for 1 ≤ n ≤ 100, exceed one-million?'
   
