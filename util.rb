@@ -49,6 +49,13 @@ class Array
     end
     r
   end
+  
+  def counts
+    # Count occurrence of each element and return as a dict
+    d = {}
+    self.each{|n| d[n] = ((d.member?n) ? d[n] : 0) + 1}
+    d
+  end
 end
 
 class Integer

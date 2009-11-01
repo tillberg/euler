@@ -4,6 +4,7 @@ require 'data'
 require 'pp'
 require 'matrix'
 require 'set'
+require 'enumerator'
 
 problem = ARGV[0].to_i
 
@@ -430,7 +431,52 @@ when 53
   sol = (1..100).map{|n| (0..n).find_all{|r| n.factorial / (r.factorial * (n-r).factorial) > 1000000}.length}.sum
 when 54
   desc = 'How many hands did player one win in the game of poker?'
-  
+  class Card < Array
+    def face
+      self[0]
+    end
+    def suit
+      self[1]
+    end
+  end
+  # We generally only care about precedence of cards - only exception is royal flush
+  # And royal flush doesn't really matter - it's just the best straight flush possible
+  # And we don't care about suits except to say that suit A == suit B
+  @faces = [?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?T, ?J, ?Q, ?K, ?A]
+  def card(sc)
+    Card.new([@faces.index(sc[0]), sc[1]])
+  end
+  # This list provides the precedence of victory conditions
+  @outcomes = ['one', 'pair', 'twopair', 'three', 'straight', 'flush', 'fullhouse', 'four', 'straightflush']
+  def value(outcome, subval)
+    return @outcomes.index(outcome)*1000000000 + subval
+  end
+  def values(hand)
+    hand = hand.sort
+    return [] if hand.empty?
+    flush = (hand.length == 5 and hand.all?{|c| c.suit == hand.first.suit})
+    straight = (hand.length == 5 and (1...5).all?{|i| hand[i].face == hand.first.face + i})
+    return [value('straightflush', hand.map{|c| c.face}.min)] if straight and flush
+    dups = hand.map{|c| c.face}.counts.map{|f,n| [n,f]}.sort.reverse
+    dups0count = dups[0][0]
+    dups0face = dups[0][1]
+    dups1count = dups[1][0] if dups.length > 1
+    dups1face = dups[1][1] if dups.length > 1
+    return [value('four', dups0face)] + values(hand.find_all{|c| c.face != dups0face}) if dups0count == 4
+    return [value('fullhouse', dups0face*20 + dups1face)] if dups0count == 3 and dups1count == 2
+    return [value('flush', hand.map{|c| c.face}.sort.to_enum(:each_with_index).map{|f,i| f*(20**i)}.sum)] if flush
+    return [value('straight', hand.map{|c| c.face}.min)] if straight
+    return [value('three', dups0face)] + values(hand.find_all{|c| c.face != dups0face}) if dups0count == 3
+    return [value('twopair', dups0face*20 + dups1face)] + values(hand.find_all{|c| c.face != dups0face and c.face != dups1face}) if dups0count == 2 and dups1count == 2
+    return [value('pair', dups0face)] + values(hand.find_all{|c| c.face != dups0face}) if dups0count == 2
+    return [value('one', dups0face)] + values(hand.find_all{|c| c.face != dups0face})
+  end
+  hands = open('poker.txt'){|f| f.read}.split(/\n/).map{|l| c = l.split().map{|sc| card(sc)}; [c[0...5], c[5...10]]}
+  def wins(hands)
+    vals = hands.map{|h| values(h).to_enum(:each_with_index).map{|v,i| v * (10**((5 - i)*12))}.sum}
+    vals[0] > vals[1]
+  end
+  sol = hands.find_all{|h| wins(h)}.length
 when 55
   desc = 'How many Lychrel numbers are there below ten-thousand?'
   
