@@ -481,8 +481,8 @@ when 55
   desc = 'How many Lychrel numbers are there below ten-thousand?'
   sol = (1...10000).find_all{|n| (0...52).none?{ (n = n + n.digits.reverse.to_s.to_i).palindrome? }}.count
 when 56
-  desc = 'Considering natural numbers of the form, ab, finding the maximum digital sum.'
-  
+  desc = 'Considering natural numbers of the form, a**b, finding the maximum digital sum.'
+  sol = [1...100, 1...100].explode.map{|a,b| (a**b).digits.sum}.max
 when 57
   desc = 'Investigate the expansion of the continued fraction for the square root of two.'
   
