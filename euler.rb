@@ -479,7 +479,7 @@ when 54
   sol = hands.find_all{|h| wins(h)}.length
 when 55
   desc = 'How many Lychrel numbers are there below ten-thousand?'
-  
+  sol = (1...10000).find_all{|n| (0...52).none?{ (n = n + n.digits.reverse.to_s.to_i).palindrome? }}.count
 when 56
   desc = 'Considering natural numbers of the form, ab, finding the maximum digital sum.'
   
