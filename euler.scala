@@ -2,6 +2,8 @@
 exec scala "$0" "$@"
 !#
 
+import scala.collection.mutable._
+
 class RichStream[A](str: =>Stream[A]) {
   def ::(hd: A) = Stream.cons(hd, str)
 }
@@ -26,9 +28,29 @@ object Euler {
       desc = "Find the sum of all the even-valued terms in the Fibonacci sequence which do not exceed four million."
       fib.takeWhile(_ <= 4000000).filter(_ % 2 == 0).sum
     }
+    case 3 => {
+      desc = "Find the largest prime factor of a composite number."
+      factors(600851475143L).max
+    }
   }
   
   
   lazy val fib: Stream[Int] = 0 :: 1 :: fib.zip(fib.tail).map(p => p._1 + p._2)
+  lazy val naturals: Stream[Int] = 1 :: naturals.map(_ + 1)
+  def factors(num: Long) = {
+    var fac = ListBuffer[Int]()
+    var i = 2
+    var n = num
+    while ( n > 1 ) {
+      if ( n % i == 0 ) {
+        fac.append(i)
+        n /= i
+      } else {
+        i += 1
+      }
+    }
+    fac
+  }
 }
+
 Euler.main(args)
