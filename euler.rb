@@ -10,6 +10,7 @@ problem = ARGV[0].to_i
 
 desc = nil
 sol = nil
+start = Time.now
 
 case problem
 when 1
@@ -485,7 +486,23 @@ when 56
   sol = [1...100, 1...100].explode.map{|a,b| (a**b).digits.sum}.max
 when 57
   desc = 'Investigate the expansion of the continued fraction for the square root of two.'
+  desc = 'Following is not an Euler problem, in case you forget'
+  #http://tierneylab.blogs.nytimes.com/2010/02/01/monday-puzzle-the-toiling-antomatons/
   
+  
+  def beans( ants, rem )
+    n = 1.0
+    while true:
+      m = n
+      break if (1..ants).all?{|a|
+        m = ( m - rem ) * ( ants - 1 ) / ants
+        m == m.floor
+      }
+      n += 1
+    end
+    n.floor
+  end
+  sol = beans( 5, 1 )
 when 58
   desc = 'Investigate the number of primes that lie on the diagonals of the spiral grid.'
   
@@ -620,9 +637,7 @@ end
 if desc == nil or sol == nil then
   puts 'That problem number does not yet have a solution.'
 else
-  puts
-  puts '    Problem: ' + problem.to_s
-  puts 'Description: ' + desc
-  puts '   Solution: ' + sol.to_s
-  puts  
+  puts '       Problem: ' + problem.to_s
+  puts '   Description: ' + desc
+  puts ' Ruby Solution: ' + sol.to_s + ' (' + (1000 * (Time.now - start)).round.to_s + ' ms)'
 end
