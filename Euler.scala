@@ -49,7 +49,10 @@ object Euler {
     }
     case 8 => {
       desc = "Discover the largest product of five consecutive digits in the 1000-digit number."
-      //ScalaData.digits_8
+      val C = 5
+      val digits = EulerData.digits_8.toArray map (_.toString) map parseInt
+      val num = digits.length
+      (0 until C).map(i => digits.slice(i, num - C + i)).reduceRight((a, b) => a.zip(b).map(e => e._1 * e._2)).max
     }
   }
   
@@ -82,6 +85,7 @@ object Euler {
     n
   })
   implicit def string2Int(s: String): Int = augmentString(s).toInt
+  def parseInt(s:String) = Integer.parseInt(s, 10)
 }
 
 //Euler.main(args)
