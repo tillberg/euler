@@ -1,15 +1,9 @@
-#!/bin/sh
-exec scala "$0" "$@"
-!#
+
+package euler
 
 import scala.collection.TraversableLike
 import scala.collection.mutable._
 
-class RichStream[A](str: =>Stream[A]) {
-  def ::(hd: A) = Stream.cons(hd, str)
-}
-implicit def streamToRichStream[A](str: =>Stream[A]) = new RichStream(str)
-implicit def string2Int(s: String): Int = augmentString(s).toInt
 
 object Euler {
   var desc = ""
@@ -42,13 +36,27 @@ object Euler {
       desc = "What is the smallest number divisible by each of the numbers 1 to 20?"
       val rng = 2 to 20
       val step = rng.filter(isPrime(_)).reduceLeft(_ * _)
-      naturals.map(_ * step).find(n => rng.forall(i => n % i == 0)).get
+      lazyNaturals.map(_ * step).find(n => rng.forall(i => n % i == 0)).get
+    }
+    case 6 => {
+      desc = "What is the difference between the sum of the squares and the square of the sums?"
+      val rng = 1 to 100
+      (rng.sum * rng.sum) - rng.map(r=>r*r).sum
+    }
+    case 7 => {
+      desc = "Find the 10001st prime."
+      primes(10000)
+    }
+    case 8 => {
+      desc = "Discover the largest product of five consecutive digits in the 1000-digit number."
+      //ScalaData.digits_8
     }
   }
   
   
-  lazy val fib: Stream[Int] = 0 :: 1 :: fib.zip(fib.tail).map(p => p._1 + p._2)
-  lazy val naturals: Stream[Int] = 1 :: naturals.map(_ + 1)
+  lazy val fib: Stream[Int] = 0 #:: 1 #:: fib.zip(fib.tail).map(p => p._1 + p._2)
+  val naturals = (1 to Int.MaxValue)
+  lazy val lazyNaturals: Stream[Int] = 1 #:: lazyNaturals.map(_ + 1)
   def factors(num: Long) = {
     var fac = ListBuffer[Int]()
     var i = 2
@@ -66,6 +74,14 @@ object Euler {
   def even(t: Stream[Int]) = t.filter(_ % 2 == 0)
   def isPalindrome(n: Int) = n.toString.reverse == n.toString
   def isPrime(n: Long) = factors(n).length == 1
+  
+  lazy val primes: Stream[Int] = 2 #:: primes.map(prev => {
+    var n = prev + 1
+    val _primes = primes.takeWhile( i => i * i < 2 * prev )
+    while ( _primes.exists( n % _ == 0 ) ) { n += 1 }
+    n
+  })
+  implicit def string2Int(s: String): Int = augmentString(s).toInt
 }
 
-Euler.main(args)
+//Euler.main(args)
