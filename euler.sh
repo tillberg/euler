@@ -1,2 +1,3 @@
 jruby euler.rb $1
-./euler.scala $1
+scalac -d classes *.scala
+scala -cp classes euler.Euler $1
