@@ -3,7 +3,7 @@ package euler
 
 import scala.collection.TraversableLike
 import scala.collection.mutable._
-
+import scala.math.BigInt
 
 object Euler {
   var desc = ""
@@ -56,7 +56,15 @@ object Euler {
     }
     case 9 => {
       desc = "Find the only Pythagorean triplet, {a, b, c}, for which a + b + c = 1000."
-      //
+      def isPyTrip(i: Int, j: Int) = {
+        val k = 1000 - i - j
+        i * i + j * j == k * k
+      }
+      (for (x <- 1 to 998; y <- x to (1000 - x) if isPyTrip(x, y)) yield x * y * (1000 - x - y)).head
+    }
+    case 10 => {
+      desc = "Calculate the sum of all the primes below two million."
+      primes.takeWhile(_ < 2000000).map(BigInt(_)).sum
     }
   }
   
