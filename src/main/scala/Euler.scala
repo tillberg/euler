@@ -54,6 +54,10 @@ object Euler {
       val num = digits.length
       (0 until C).map(i => digits.slice(i, num - C + i)).reduceRight((a, b) => a.zip(b).map(e => e._1 * e._2)).max
     }
+    case 9 => {
+      desc = "Find the only Pythagorean triplet, {a, b, c}, for which a + b + c = 1000."
+      //
+    }
   }
   
   
@@ -80,7 +84,7 @@ object Euler {
   
   lazy val primes: Stream[Int] = 2 #:: primes.map(prev => {
     var n = prev + 1
-    val _primes = primes.takeWhile( i => i * i < 2 * prev )
+    val _primes = primes.takeWhile( i => i * i <= prev * 3 / 2 )
     while ( _primes.exists( n % _ == 0 ) ) { n += 1 }
     n
   })
