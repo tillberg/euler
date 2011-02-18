@@ -35,8 +35,8 @@ object Euler {
     case 5 => {
       desc = "What is the smallest number divisible by each of the numbers 1 to 20?"
       val rng = 2 to 20
-      val step = rng.filter(isPrime(_)).reduceLeft(_ * _)
-      lazyNaturals.map(_ * step).find(n => rng.forall(i => n % i == 0)).get
+      val step = (2 to 20).filter(isPrime(_)).reduceLeft(_ * _)
+      fromBy(step, step).find(n => rng.forall(i => n % i == 0)).get
     }
     case 6 => {
       desc = "What is the difference between the sum of the squares and the square of the sums?"
@@ -66,12 +66,23 @@ object Euler {
       desc = "Calculate the sum of all the primes below two million."
       primes.takeWhile(_ < 2000000).map(BigInt(_)).sum
     }
+    case 11 => {
+      desc = "What is the greatest product of four numbers on the same straight line in the 20 by 20 grid?"
+      // Skipping this.  This one is annoying
+    }
+    case 12 => {
+      desc = "What is the value of the first triangle number to have over five hundred divisors?"
+      triangle.find(numDivisors(_) > 500).get
+    }
   }
   
-  
+  def fromBy(n: Int, step: Int): Stream[Int] = n #:: fromBy(n + step, step)
+  def from(n: Int): Stream[Int] = n #:: from(n + 1)
   lazy val fib: Stream[Int] = 0 #:: 1 #:: fib.zip(fib.tail).map(p => p._1 + p._2)
   val naturals = (1 to Int.MaxValue)
-  lazy val lazyNaturals: Stream[Int] = 1 #:: lazyNaturals.map(_ + 1)
+  lazy val lazyNaturals: Stream[Int] = from(1)
+  def triangleGen(last: Int, step: Int): Stream[Int] = (last + step) #:: triangleGen(last + step, step + 1)
+  lazy val triangle = triangleGen(0, 1)
   def factors(num: Long) = {
     var fac = ListBuffer[Int]()
     var i = 2
@@ -89,13 +100,24 @@ object Euler {
   def even(t: Stream[Int]) = t.filter(_ % 2 == 0)
   def isPalindrome(n: Int) = n.toString.reverse == n.toString
   def isPrime(n: Long) = factors(n).length == 1
-  
-  lazy val primes: Stream[Int] = 2 #:: primes.map(prev => {
+  def numDivisors(n: Long) = {
+    listToCountedMap(factors(n)).values.map(_ + 1).product
+  }
+  def listToCountedMap(s: Traversable[Int]) = {
+    s.foldRight(HashMap[Int, Int]())({ (r, acc) =>
+      acc += ((r, acc.get(r) match {
+        case None => 1
+        case Some(n) => n + 1
+      }))
+    })
+  }
+  def sieve(s: Stream[Int]): Stream[Int] = Stream.cons(s.head, sieve(s.tail filter { _ % s.head != 0 }))
+  lazy val primes: Stream[Int] = sieve(from(2)) /*2 #:: primes.map(prev => {
     var n = prev + 1
     val _primes = primes.takeWhile( i => i * i <= prev * 3 / 2 )
     while ( _primes.exists( n % _ == 0 ) ) { n += 1 }
     n
-  })
+  })*/
   implicit def string2Int(s: String): Int = augmentString(s).toInt
   def parseInt(s:String) = Integer.parseInt(s, 10)
 }
