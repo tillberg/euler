@@ -74,6 +74,33 @@ object Euler {
       desc = "What is the value of the first triangle number to have over five hundred divisors?"
       triangle.find(numDivisors(_) > 500).get
     }
+    case 13 => {
+      desc = "Find the first ten digits of the sum of one-hundred 50-digit numbers."
+      // This one crashed SBT when inputting the data
+    }
+    case 14 => {
+      desc = "Find the longest sequence using a starting number under one million."
+      var seqLens = HashMap[Long, Long]()
+      def seqLen(n: Long): Long = n match {
+        case 1 => 1
+        case n => {
+          seqLens.get(n) match {
+            case Some(x) => x
+            case None => {
+              val l = 1 + (( n & 1 ) match {
+                case 0 => seqLen( n / 2 )
+                case 1 => seqLen( 3 * n + 1 )
+              })
+              seqLens += ((n, l))
+              l
+            }
+          }
+        }
+      }
+      val list = (1 until 1000000).map(seqLen(_))
+      val max = list.max
+      list.findIndexOf(_ == max)
+    }
   }
   
   def fromBy(n: Int, step: Int): Stream[Int] = n #:: fromBy(n + step, step)
