@@ -8,7 +8,7 @@ import collection.mutable
 object Euler {
   var desc = ""
   def main(args: Array[String]) = {
-    val problemNumber = 15 //args.head.toInt
+    val problemNumber = 16 //args.head.toInt
     val start = System.currentTimeMillis
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
@@ -125,7 +125,7 @@ object Euler {
       numPaths(0, 0)
     case 16 =>
       desc = "What is the sum of the digits of the number 2**1000?"
-
+      BigInt(2).pow(1000).toString().map(parseInt).sum
     case 17 =>
       desc = "How many letters would be needed to write all the numbers in words from 1 to 1000?"
 
@@ -239,6 +239,7 @@ object Euler {
     n
   })*/
   def parseInt(s:String) = Integer.parseInt(s, 10)
+  def parseInt(s:Char) = Integer.parseInt(s.toString, 10)
 }
 
 //Euler.main(args)
