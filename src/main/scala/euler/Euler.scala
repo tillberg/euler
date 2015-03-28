@@ -1,7 +1,6 @@
 
 package euler
 
-import scala.collection.TraversableLike
 import scala.collection.mutable._
 import scala.math.BigInt
 
@@ -102,16 +101,16 @@ object Euler {
       list.findIndexOf(_ == max)
     }
   }
-  
+
   def fromBy(n: Int, step: Int): Stream[Int] = n #:: fromBy(n + step, step)
   def from(n: Int): Stream[Int] = n #:: from(n + 1)
   lazy val fib: Stream[Int] = 0 #:: 1 #:: fib.zip(fib.tail).map(p => p._1 + p._2)
-  val naturals = (1 to Int.MaxValue)
+  val naturals = 1 to Int.MaxValue
   lazy val lazyNaturals: Stream[Int] = from(1)
   def triangleGen(last: Int, step: Int): Stream[Int] = (last + step) #:: triangleGen(last + step, step + 1)
   lazy val triangle = triangleGen(0, 1)
   def factors(num: Long) = {
-    var fac = ListBuffer[Int]()
+    val fac = ListBuffer[Int]()
     var i = 2
     var n = num
     while ( n > 1 ) {
