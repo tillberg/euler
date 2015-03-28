@@ -8,12 +8,13 @@ import collection.mutable
 object Euler {
   var desc = ""
   def main(args: Array[String]) = {
-    val problemNumber = args.head.toInt
+    val problemNumber = 13 //args.head.toInt
     val start = System.currentTimeMillis
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
-    //println(desc)
-    println("Solution to problem " + problemNumber + ": " + solution + " (" + totalTime + " ms)")
+    println("Problem " + problemNumber)
+    println(desc)
+    println("Solution: " + solution + " (" + totalTime + " ms)")
   }
   def euler(i: Int) = i match {
     case 1 =>
@@ -85,7 +86,7 @@ object Euler {
       triangle.find(numDivisors(_) > 500).get
     case 13 =>
       desc = "Find the first ten digits of the sum of one-hundred 50-digit numbers."
-      // This one crashed SBT when inputting the data
+      EulerData.digits_13.split('\n').map(BigInt(_)).sum.toString().substring(0, 10)
     case 14 =>
       desc = "Find the longest sequence using a starting number under one million."
       var seqLens = mutable.HashMap[Long, Long]()
