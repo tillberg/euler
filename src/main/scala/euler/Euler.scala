@@ -13,7 +13,7 @@ object Euler {
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
     //println(desc)
-    println("Scala Solution: " + solution + " (" + totalTime + " ms)")
+    println("Solution to problem " + problemNumber + ": " + solution + " (" + totalTime + " ms)")
   }
   def euler(i: Int) = i match {
     case 1 =>
@@ -60,6 +60,26 @@ object Euler {
     case 11 =>
       desc = "What is the greatest product of four numbers on the same straight line in the 20 by 20 grid?"
       // Skipping this.  This one is annoying
+      val gridLines = EulerData.digits_11.split('\n')
+      val grid = gridLines.map(_.split(' ').map(parseInt).toVector).toVector
+      val size = 20
+      val lineLength = 4
+      def getProduct(pt: (Int, Int), direction: (Int, Int)) = {
+        val (x, y) = pt
+        val (dx, dy) = direction
+        val endX = x + (lineLength - 1) * dx
+        val endY = y + (lineLength - 1) * dy
+        if (endX >= 0 && endX < size && endY >= 0 && endY < size) {
+          def valAt(i:Int) = grid(x + i * dx)(y + i * dy)
+          (0 until lineLength).map(valAt).product
+        } else {
+          0
+        }
+      }
+      val starts = (0 until size).flatMap(x => (0 until size).map(y => (x, y)))
+      val directions = (-1 to 1).flatMap(x => (-1 to 1).map(y => (x, y)))
+        .filter(direction => direction._1 != 0 || direction._2 != 0)
+      starts.flatMap(pt => directions.map(direction => getProduct(pt, direction))).max
     case 12 =>
       desc = "What is the value of the first triangle number to have over five hundred divisors?"
       triangle.find(numDivisors(_) > 500).get
