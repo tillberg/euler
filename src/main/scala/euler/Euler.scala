@@ -38,7 +38,7 @@ object Euler {
     case 6 =>
       desc = "What is the difference between the sum of the squares and the square of the sums?"
       val rng = 1 to 100
-      (rng.sum * rng.sum) - rng.map(r=>r*r).sum
+      (rng.sum * rng.sum) - rng.map(r => r * r).sum
     case 7 =>
       desc = "Find the 10001st prime."
       primes(10000)
@@ -69,7 +69,7 @@ object Euler {
         val endX = x + (lineLength - 1) * dx
         val endY = y + (lineLength - 1) * dy
         if (endX >= 0 && endX < size && endY >= 0 && endY < size) {
-          def valAt(i:Int) = grid(x + i * dx)(y + i * dy)
+          def valAt(i: Int) = grid(x + i * dx)(y + i * dy)
           (0 until lineLength).map(valAt).product
         } else {
           0
@@ -95,8 +95,8 @@ object Euler {
             case Some(x) => x
             case None =>
               val l = 1 + (n & 1 match {
-                case 0 => seqLen( n / 2 )
-                case 1 => seqLen( 3 * n + 1 )
+                case 0 => seqLen(n / 2)
+                case 1 => seqLen(3 * n + 1)
               })
               seqLens += ((n, l))
               l
@@ -128,7 +128,7 @@ object Euler {
       desc = "How many letters would be needed to write all the numbers in words from 1 to 1000?"
       val words = Array("", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
       val decades = Array("", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety")
-      def numInWords(n:Int): String = {
+      def numInWords(n: Int): String = {
         var str = ""
         if (n == 1000) return "one thousand"
         val nMod100 = n % 100
@@ -222,7 +222,191 @@ object Euler {
 
     case 39 =>
       desc = "If p is the perimeter of a right angle triangle, {a, b, c}, which value, for p ≤ 1000, has the most solutions?"
+
+    case 40 =>
+      desc = "Finding the nth digit of the fractional part of the irrational number."
+
+    case 41 =>
+      desc = "What is the largest n-digit pandigital prime that exists?"
+
+    case 42 =>
+      desc = "How many triangle words does the list of common English words contain?"
+
+    case 43 =>
+      desc = "Find the sum of all pandigital numbers with an unusual sub-string divisibility property."
+
+    case 44 =>
+      desc = "Find the smallest pair of pentagonal numbers whose sum and difference is pentagonal."
+
+    case 45 =>
+      desc = "After 40755, what is the next triangle number that is also pentagonal and hexagonal?"
+
+    case 46 =>
+      desc = "What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?"
+
+    case 47 =>
+      desc = "Find the first four consecutive integers to have four distinct primes factors."
+
+    case 48 =>
+      desc = "Find the last ten digits of 1**1 + 2**2 + ... + 1000**1000."
+
+    case 49 =>
+      desc = "Find arithmetic sequences, made of prime terms, whose four digits are permutations of each other."
+
+    case 50 =>
+      desc = "Which prime, below one-million, can be written as the sum of the most consecutive primes?"
+
+    case 51 =>
+      desc = "Find the smallest prime which, by changing the same part of the number, can form eight different primes."
+
+    case 52 =>
+      desc = "Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits in some order."
+
+    case 53 =>
+      desc = "How many values of C(n,r), for 1 ≤ n ≤ 100, exceed one-million?"
+
+    case 54 =>
+      desc = "How many hands did player one win in the game of poker?"
+
+    case 55 =>
+      desc = "How many Lychrel numbers are there below ten-thousand?"
+
+    case 56 =>
+      desc = "Considering natural numbers of the form, a**b, finding the maximum digital sum."
+
+    case 57 =>
+      desc = "Investigate the expansion of the continued fraction for the square root of two."
+
+    case 58 =>
+      desc = "Investigate the number of primes that lie on the diagonals of the spiral grid."
+
+    case 59 =>
+      desc = "Using a brute force attack, can you decrypt the cipher using XOR encryption?"
+
+    case 60 =>
+      desc = "Find a set of five primes for which any two primes concatenate to produce another prime."
+
+    case 61 =>
+      desc = "Find the sum of the only set of six 4-digit figurate numbers with a cyclic property."
+
+    case 62 =>
+      desc = "Find the smallest cube for which exactly five permutations of its digits are cube."
+
+    case 63 =>
+      desc = "How many n-digit positive integers exist which are also an nth power?"
+
+    case 64 =>
+      desc = "How many continued fractions for N ≤ 10000 have an odd period?"
+
+    case 65 =>
+      desc = "Find the sum of digits in the numerator of the 100th convergent of the continued fraction for e."
+
+    case 66 =>
+      desc = "Investigate the Diophantine equation x2 − Dy2 = 1."
+
+    case 67 =>
+      desc = "Using an efficient algorithm find the maximal sum in the triangle?"
+
+    case 68 =>
+      desc = "What is the maximum 16-digit string for a \"magic\" 5-gon ring?"
+
+    case 69 =>
+      desc = "Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum."
+
+    case 70 =>
+      desc = "Investigate values of n for which φ(n) is a permutation of n."
+
+    case 71 =>
+      desc = "Listing reduced proper fractions in ascending order of size."
+
+    case 72 =>
+      desc = "How many elements would be contained in the set of reduced proper fractions for d ≤ 1,000,000?"
+
+    case 73 =>
+      desc = "How many fractions lie between 1/3 and 1/2 in a sorted set of reduced proper fractions?"
+
+    case 74 =>
+      desc = "Determine the number of factorial chains that contain exactly sixty non-repeating terms."
+
+    case 75 =>
+      desc = "Find the number of different lengths of wire can that can form a right angle triangle in only one way."
+
+    case 76 =>
+      desc = "How many different ways can one hundred be written as a sum of at least two positive integers?"
+
+    case 77 =>
+      desc = "What is the first value which can be written as the sum of primes in over five thousand different ways?"
+
+    case 78 =>
+      desc = "Investigating the number of ways in which coins can be separated into piles."
+
+    case 79 =>
+      desc = "By analysing a user\"s login attempts, can you determine the secret numeric passcode?"
+
+    case 80 =>
+      desc = "Calculating the digital sum of the decimal digits of irrational square roots."
+
+    case 81 =>
+      desc = "Find the minimal path sum from the top left to the bottom right by moving right and down."
+
+    case 82 =>
+      desc = "Find the minimal path sum from the left column to the right column."
+
+    case 83 =>
+      desc = "Find the minimal path sum from the top left to the bottom right by moving left, right, up, and down."
+
+    case 84 =>
+      desc = "In the game, Monopoly, find the three most popular squares when using two 4-sided dice."
+
+    case 85 =>
+      desc = "Investigating the number of rectangles in a rectangular grid."
+
+    case 86 =>
+      desc = "Exploring the shortest path from one corner of a cuboid to another."
+
+    case 87 =>
+      desc = "Investigating numbers that can be expressed as the sum of a prime square, cube, and fourth power?"
+
+    case 88 =>
+      desc = "Exploring minimal product-sum numbers for sets of different sizes."
+
+    case 89 =>
+      desc = "Develop a method to express Roman numerals in minimal form."
+
+    case 90 =>
+      desc = "An unexpected way of using two cubes to make a square."
+
+    case 91 =>
+      desc = "Find the number of right angle triangles in the quadrant."
+
+    case 92 =>
+      desc = "Investigating a square digits number chain with a surprising property."
+
+    case 93 =>
+      desc = "Using four distinct digits and the rules of arithmetic, find the longest sequence of target numbers."
+
+    case 94 =>
+      desc = "Investigating almost equilateral triangles with integral sides and area."
+
+    case 95 =>
+      desc = "Find the smallest member of the longest amicable chain with no element exceeding one million."
+
+    case 96 =>
+      desc = "Devise an algorithm for solving Su Doku puzzles."
+
+    case 97 =>
+      desc = "Find the last ten digits of the non-Mersenne prime: 28433 × 27830457 + 1."
+
+    case 98 =>
+      desc = "Investigating words, and their anagrams, which can represent square numbers."
+
+    case 99 =>
+      desc = "Which base/exponent pair in the file has the greatest numerical value?"
+
+    case 100 =>
+      desc = "Finding the number of blue discs for which there is 50% chance of taking two blue."
   }
+
 
   def fromBy(n: Int, step: Int): Stream[Int] = n #:: fromBy(n + step, step)
   def from(n: Int): Stream[Int] = n #:: from(n + 1)
