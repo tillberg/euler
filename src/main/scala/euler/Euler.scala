@@ -8,7 +8,7 @@ import collection.mutable
 object Euler {
   var desc = ""
   def main(args: Array[String]) = {
-    val problemNumber = 17 //args.head.toInt
+    val problemNumber = 18 //args.head.toInt
     val start = System.currentTimeMillis
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
@@ -60,9 +60,7 @@ object Euler {
       primes.takeWhile(_ < 2000000).map(BigInt(_)).sum
     case 11 =>
       desc = "What is the greatest product of four numbers on the same straight line in the 20 by 20 grid?"
-      // Skipping this.  This one is annoying
-      val gridLines = EulerData.digits_11.split('\n')
-      val grid = gridLines.map(_.split(' ').map(parseInt).toVector).toVector
+      val grid = EulerData.grid_11
       val size = 20
       val lineLength = 4
       def getProduct(pt: (Int, Int), direction: (Int, Int)) = {
@@ -149,7 +147,19 @@ object Euler {
       (1 to 1000).map(numInWords).map(_.replace(" ", "")).map(_.length).sum
     case 18 =>
       desc = "Find the maximum sum travelling from the top of the triangle to the base."
-
+      val grid = EulerData.grid_18
+      val memoized = mutable.HashMap[(Int, Int), Int]()
+      def maxSumFrom(pt: (Int, Int)): Int = {
+        if (pt._2 >= grid.length) return 0
+        memoized.get(pt) match {
+          case Some(n) => n
+          case None =>
+            val max = grid(pt._2)(pt._1) + math.max(maxSumFrom((pt._1 + 1, pt._2 + 1)), maxSumFrom((pt._1, pt._2 + 1)))
+            memoized.update(pt, max)
+            max
+        }
+      }
+      maxSumFrom((0, 0))
     case 19 =>
       desc = "How many Sundays fell on the first of the month during the twentieth century?"
 
