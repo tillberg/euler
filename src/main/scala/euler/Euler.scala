@@ -8,7 +8,7 @@ import collection.mutable
 object Euler {
   var desc = ""
   def main(args: Array[String]) = {
-    val problemNumber = 16 //args.head.toInt
+    val problemNumber = 17 //args.head.toInt
     val start = System.currentTimeMillis
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
@@ -128,7 +128,25 @@ object Euler {
       BigInt(2).pow(1000).toString().map(parseInt).sum
     case 17 =>
       desc = "How many letters would be needed to write all the numbers in words from 1 to 1000?"
-
+      val words = Array("", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
+      val decades = Array("", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety")
+      def numInWords(n:Int): String = {
+        var str = ""
+        if (n == 1000) return "one thousand"
+        val nMod100 = n % 100
+        if (n >= 100) {
+          str += words(n / 100) + " hundred"
+          if (nMod100 > 0) {
+            str += " and"
+          }
+        }
+        if (nMod100 >= 20) {
+          str += " " + decades(nMod100 / 10)
+        }
+        str += " " + (if (nMod100 >= 20) words(n % 10) else words(nMod100))
+        str
+      }
+      (1 to 1000).map(numInWords).map(_.replace(" ", "")).map(_.length).sum
     case 18 =>
       desc = "Find the maximum sum travelling from the top of the triangle to the base."
 
