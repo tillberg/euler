@@ -8,7 +8,7 @@ import collection.mutable
 object Euler {
   var desc = ""
   def main(args: Array[String]) = {
-    val problemNumber = 18 //args.head.toInt
+    val problemNumber = 67 //args.head.toInt
     val start = System.currentTimeMillis
     val solution = euler(problemNumber)
     val totalTime = System.currentTimeMillis - start
@@ -147,19 +147,7 @@ object Euler {
       (1 to 1000).map(numInWords).map(_.replace(" ", "")).map(_.length).sum
     case 18 =>
       desc = "Find the maximum sum travelling from the top of the triangle to the base."
-      val grid = EulerData.grid_18
-      val memoized = mutable.HashMap[(Int, Int), Int]()
-      def maxSumFrom(pt: (Int, Int)): Int = {
-        if (pt._2 >= grid.length) return 0
-        memoized.get(pt) match {
-          case Some(n) => n
-          case None =>
-            val max = grid(pt._2)(pt._1) + math.max(maxSumFrom((pt._1 + 1, pt._2 + 1)), maxSumFrom((pt._1, pt._2 + 1)))
-            memoized.update(pt, max)
-            max
-        }
-      }
-      maxSumFrom((0, 0))
+      Common.maxTriangleSum(EulerData.grid_18)
     case 19 =>
       desc = "How many Sundays fell on the first of the month during the twentieth century?"
 
@@ -306,7 +294,7 @@ object Euler {
 
     case 67 =>
       desc = "Using an efficient algorithm find the maximal sum in the triangle?"
-
+      Common.maxTriangleSum(EulerData.grid_67)
     case 68 =>
       desc = "What is the maximum 16-digit string for a \"magic\" 5-gon ring?"
 
